@@ -1,10 +1,13 @@
-FROM python:3
-
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
+FROM python:3.7
 
 WORKDIR /srv/simple-django
-COPY src ./
 
-ENTRYPOINT ["/usr/local/bin/python", "manage.py"]
+COPY ./requirements.txt ./requirements.txt
+
+RUN pip install -r ./requirements.txt
+
+COPY ./src/ .
+
+ENTRYPOINT ["python", "manage.py"]
+
 CMD ["runserver", "0.0.0.0:8000"]
